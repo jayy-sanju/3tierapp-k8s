@@ -15,9 +15,9 @@ pipeline {
             }
         }
 
-        stage('List Files') {
+        stage('Build Auth Image') {
             steps {
-                sh 'ls -la'
+                sh 'docker build -t cloudkart-auth ./auth-service'
             }
         }
 
