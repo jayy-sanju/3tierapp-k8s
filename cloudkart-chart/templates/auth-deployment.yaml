@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: {{ .Values.auth.name }}
+
+spec:
+  replicas: {{ .Values.auth.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Values.auth.name }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.auth.name }}
+
+    spec:
+      containers:
+        - name: {{ .Values.auth.name }}
+          image: {{ .Values.auth.image }}
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: {{ .Values.auth.containerPort }}
+
+          env:
+            - name: JWT_SECRET
+              value: {{ .Values.jwt.secret }}
+
+            - name: DATABASE_URL
+              value: {{ .Values.postgres.databaseUrl }}
+
+            - name: PORT
+              value: "5001"

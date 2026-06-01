@@ -1,0 +1,28 @@
+frontend:
+  name: frontend
+  image: cloudkart-frontend
+  replicas: 1
+  containerPort: 80
+  servicePort: 80
+
+auth:
+  name: auth-service
+  image: cloudkart-auth
+  replicas: 1
+  containerPort: 5001
+  servicePort: 5001
+
+postgres:
+  name: postgres
+  image: postgres:16
+  replicas: 1
+  containerPort: 5432
+
+  user: postgres
+  password: password
+  dbname: cloudcart
+
+  databaseUrl: postgresql://postgres:password@postgres-service:5432/cloudcart
+
+jwt:
+  secret: supersecretkey
