@@ -15,9 +15,21 @@ pipeline {
             }
         }
 
-        stage('Build Auth Image') {
+        stage('Check Kubectl') {
             steps {
-                sh 'docker build -t cloudkart-auth ./auth-service'
+                sh 'kubectl version --client'
+            }
+        }
+
+        stage('Check Cluster Access') {
+            steps {
+                sh 'kubectl get pods'
+            }
+        }
+
+        stage('Check Helm') {
+            steps {
+                sh 'helm version'
             }
         }
 
