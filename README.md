@@ -1,74 +1,241 @@
-# CloudKart – Kubernetes-Based Microservices Application
+# CloudKart - 3 Tier Application Deployment on Kubernetes with Jenkins CI/CD
 
 ## Overview
 
-CloudKart is a containerized microservices-based application built using React, Node.js, PostgreSQL, Docker, and Kubernetes.
+CloudKart is a 3-tier microservices application deployed on Kubernetes using Docker, Helm, and Jenkins CI/CD.
 
-The project demonstrates real-world DevOps and Kubernetes concepts including container orchestration, ingress routing, persistent storage, configuration management, and service discovery.
+This project demonstrates a complete DevOps workflow starting from containerization, Kubernetes orchestration, Helm-based deployments, and automated CI/CD pipelines using Jenkins.
+
+The entire environment is currently running on a local Kubernetes cluster created using KIND (Kubernetes IN Docker), simulating a real-world cloud-native deployment workflow.
+
+---
+
+## Architecture
+
+Frontend → Auth Service → PostgreSQL Database
+
+### Components
+
+* Frontend Service
+* Auth Service (Node.js Backend)
+* PostgreSQL Database
+* Kubernetes
+* Helm
+* Jenkins
+* Docker
+* KIND Cluster
+* GitHub
 
 ---
 
 ## Tech Stack
 
-* React (Frontend)
-* Node.js + Express (Backend)
-* PostgreSQL
+### Containerization
+
 * Docker
+
+### Orchestration
+
 * Kubernetes (KIND)
-* NGINX Ingress Controller
+
+### Package Management
+
+* Helm
+
+### CI/CD
+
+* Jenkins
+* Jenkinsfile (Pipeline as Code)
+
+### Source Control
+
+* Git
+* GitHub
+
+### Database
+
+* PostgreSQL
+
+### Backend
+
+* Node.js
+* Prisma ORM
+
+### Frontend
+
+* React
 
 ---
 
-## Kubernetes Concepts Implemented
+## Features Implemented
+
+### Dockerization
+
+* Containerized frontend application
+* Containerized backend application
+* Custom Docker image builds
+
+### Kubernetes Deployment
 
 * Deployments
 * Services
 * Ingress
-* ConfigMaps
-* Secrets
-* PersistentVolumeClaims
-* Scaling
-* Internal Service Discovery
+* Persistent Volume Claims (PVC)
+* Environment Variables
+* Rolling Updates
+
+### Helm Integration
+
+Migrated raw Kubernetes manifests into Helm templates.
+
+Benefits:
+
+* Reusable deployments
+* Centralized values.yaml
+* Environment flexibility
+* Easier upgrades and rollbacks
+
+### Persistent Storage
+
+Implemented PostgreSQL persistence using PVCs.
+
+Verified:
+
+* Data survives pod recreation
+* Database remains persistent across deployments
+
+### Jenkins CI/CD Pipeline
+
+Implemented Jenkins pipeline with:
+
+* GitHub repository integration
+* Pipeline as Code (Jenkinsfile)
+* Docker image builds
+* Kubernetes cluster access
+* Helm deployment automation
+* KIND image loading automation
+
+Pipeline Flow:
+
+GitHub
+↓
+Jenkins
+↓
+Docker Build
+↓
+Load Image Into KIND
+↓
+Helm Upgrade
+↓
+Kubernetes Deployment
+
+### Custom Jenkins Image
+
+Built a custom Jenkins Docker image containing:
+
+* Docker CLI
+* Kubectl
+* Helm
+* KIND CLI
+
+Configured:
+
+* Docker socket mounting
+* Kubernetes kubeconfig access
+* KIND network connectivity
 
 ---
 
-## Features
+## Project Structure
 
-* User authentication API
-* Kubernetes-based deployment
-* Persistent PostgreSQL storage
-* Ingress-based routing
-* Multi-service architecture
-* Containerized applications
+```text
+3tierapp-k8s/
+
+├── auth-service/
+├── frontend/
+├── public/
+
+├── cloudkart-chart/
+│   ├── templates/
+│   ├── values.yaml
+│   └── Chart.yaml
+
+├── jenkins-docker/
+│   └── Dockerfile
+
+├── Jenkinsfile
+
+├── docker-compose.yml
+├── kind-config.yaml
+
+├── README.md
+└── .gitignore
+```
 
 ---
 
-## Run Locally
+## CI/CD Pipeline
 
-### Build Docker Images
+Current automated workflow:
 
-```bash
-docker build -t cloudkart-frontend ./frontend
-docker build -t cloudkart-auth ./auth-service
-```
+1. Developer pushes code to GitHub
+2. Jenkins pulls repository
+3. Docker images are built
+4. Images are loaded into KIND cluster
+5. Helm upgrades Kubernetes deployment
+6. Kubernetes performs rollout
 
-### Create KIND Cluster
+---
 
-```bash
-kind create cluster --name cloudkart --config kind-config.yaml
-```
+## Key DevOps Concepts Practiced
 
-### Apply Kubernetes Resources
-
-```bash
-kubectl apply -f k8s/
-```
+* Docker Image Lifecycle
+* Kubernetes Deployments
+* Ingress Networking
+* Persistent Volumes
+* Helm Templating
+* Jenkins Pipelines
+* Pipeline as Code
+* GitOps Foundations
+* Container Networking
+* Kubernetes Service Discovery
+* CI/CD Automation
+* Kubernetes Rollouts
+* Docker Socket Integration
+* Artifact Creation (Docker Images)
 
 ---
 
 ## Future Enhancements
 
-* Helm Charts
-* Jenkins CI/CD Pipeline
+* GitHub Webhooks
+* AWS ECR Integration
 * EKS Deployment
-* Monitoring with Prometheus/Grafana
+* SonarQube Integration
+* Trivy Security Scanning
+* Terraform Infrastructure Provisioning
+
+---
+
+## Learning Outcomes
+
+This project helped me gain hands-on experience with:
+
+* Docker
+* Kubernetes
+* Helm
+* Jenkins
+* GitHub
+* CI/CD Automation
+* Containerized Application Deployment
+* Kubernetes Networking
+* Persistent Storage Management
+* DevOps Pipeline Engineering
+
+---
+
+## Author
+
+S. Srisanjay
+
+DevOps Engineer | AWS | Docker | Kubernetes | Jenkins | Terraform
